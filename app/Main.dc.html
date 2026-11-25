@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Leeway app prototype</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; display: flex; flex-direction: column; background: #F3F0E8; color: #1E2420; font-family: Figtree, system-ui, sans-serif; font-size: 15px; line-height: 1.4; overflow: hidden">
+<div style="flex: 0 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 44px; padding: 30px 20px 6px">
+<div style="display: flex; align-items: center; gap: 8px">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3F5446" stroke-width="3" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="10" r="7"></circle><path d="M12 17 V22.5"></path></svg>
+<span style="font-size: 21px; font-weight: 700; letter-spacing: -0.01em">Leeway</span>
+</div>
+<sc-if value="{{ walkBadge }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ goWalk }}" style="display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px; border: none; border-radius: 22px; background: #3F5446; color: #FFFFFF; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer">
+<svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><circle cx="5" cy="5" r="4" fill="#FFFFFF"><animate attributeName="opacity" values="1;0.35;1" dur="1.6s" repeatCount="indefinite"></animate></circle></svg>
+<span>On a walk · 18 min</span>
+</button>
+</sc-if>
+</div>
+<div style="flex: 1 1 0; min-height: 0; overflow-y: auto; padding: 10px 20px 24px; box-sizing: border-box">
+
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
+<div style="display: flex; flex-direction: column; gap: 2px">
+<h1 style="margin: 0; font-size: 28px; font-weight: 700; letter-spacing: -0.01em">Hyde Park</h1>
+<span style="font-size: 14px; color: #5E665F">Quiet until about 3:30 pm · 3 friends here</span>
+</div>
+<button onClick="{{ goProfile }}" aria-label="Open Miso's profile" style="width: 48px; height: 48px; border-radius: 24px; border: none; background: #3F5446; color: #FFFFFF; font: inherit; font-size: 18px; font-weight: 700; cursor: pointer">M</button>
+</div>
+<div style="background: #FFFFFF; border-radius: 20px; padding: 8px">
+<svg viewBox="0 0 350 240" role="img" aria-label="Map of Hyde Park showing where you are and the areas where three friends are walking: Biscuit near Speakers' Corner, Olive by the Serpentine and Pepper on the Kensington Gardens side" style="width: 100%; height: auto; border-radius: 14px; display: block">
+<rect x="0" y="0" width="350" height="240" fill="#ECE8DC"></rect>
+<path d="M0 10 H350 M0 229 H350 M6 0 V240 M344 0 V240" stroke="#FFFFFF" stroke-width="6" fill="none"></path>
+<rect x="14" y="20" width="322" height="200" rx="14" fill="#D3DFCB"></rect>
+<path d="M132 20 V220" stroke="#FFFFFF" stroke-width="3" fill="none"></path>
+<path d="M14 200 H336 M132 62 L252 30 M132 156 L330 64 M184 220 L292 20" stroke="#F3F0E8" stroke-width="1.6" fill="none"></path>
+<path d="M118 44 C112 80 124 108 150 122 C190 140 240 128 292 150" stroke="#AFC8D6" stroke-width="15" stroke-linecap="round" fill="none"></path>
+<text x="22" y="132" font-size="10.5" font-weight="600" fill="#4A524C" font-family="Figtree, sans-serif">Kensington Gardens</text>
+<text x="176" y="160" font-size="10.5" font-weight="600" fill="#4A524C" font-family="Figtree, sans-serif">The Serpentine</text>
+<text x="226" y="36" font-size="10.5" font-weight="600" fill="#4A524C" font-family="Figtree, sans-serif">Speakers' Corner</text>
+<text x="252" y="214" font-size="10.5" font-weight="600" fill="#4A524C" font-family="Figtree, sans-serif">Hyde Park Corner</text>
+<circle cx="292" cy="66" r="21" fill="#177A6E" opacity="0.2"></circle>
+<circle cx="292" cy="66" r="11" fill="#177A6E"></circle>
+<text x="292" y="70" text-anchor="middle" font-size="11" font-weight="700" fill="#FFFFFF" font-family="Figtree, sans-serif">B</text>
+<circle cx="214" cy="106" r="21" fill="#177A6E" opacity="0.2"></circle>
+<circle cx="214" cy="106" r="11" fill="#177A6E"></circle>
+<text x="214" y="110" text-anchor="middle" font-size="11" font-weight="700" fill="#FFFFFF" font-family="Figtree, sans-serif">O</text>
+<circle cx="72" cy="82" r="21" fill="#177A6E" opacity="0.2"></circle>
+<circle cx="72" cy="82" r="11" fill="#177A6E"></circle>
+<text x="72" y="86" text-anchor="middle" font-size="11" font-weight="700" fill="#FFFFFF" font-family="Figtree, sans-serif">P</text>
+<circle cx="222" cy="198" r="8" fill="#1E2420" stroke="#FFFFFF" stroke-width="3"></circle>
+<text x="222" y="184" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1E2420" font-family="Figtree, sans-serif">You</text>
+</svg>
+</div>
+<div style="background: #FFFFFF; border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px">
+<span style="font-weight: 700; font-size: 16px">Friends in the park now</span>
+<button onClick="{{ goPack }}" style="min-height: 44px; padding: 0; border: none; background: transparent; color: #3F5446; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer">See all</button>
+</div>
+<sc-for list="{{ friends }}" as="f" hint-placeholder-count="3">
+<div style="display: flex; align-items: center; gap: 12px">
+<div style="flex: 0 0 auto; width: 40px; height: 40px; border-radius: 20px; background: #177A6E; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-weight: 700">{{ f.letter }}</div>
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column">
+<span style="font-weight: 700">{{ f.name }} <span style="font-weight: 400; color: #5E665F">{{ f.who }}</span></span>
+<span style="font-size: 13px; color: #5E665F">{{ f.where }}</span>
+</div>
+<span style="flex: 0 0 auto; display: inline-flex; align-items: center; gap: 6px; padding: 6px 11px; border-radius: 14px; background: #D5E0D6; color: #2C3D32; font-size: 13px; font-weight: 700">
+<svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><circle cx="5" cy="5" r="4" fill="#177A6E"></circle></svg>
+<span>Walking</span>
+</span>
+</div>
+</sc-for>
+<span style="font-size: 12px; color: #5E665F">Circles show the area a friend is in, not their exact spot.</span>
+</div>
+<button onClick="{{ startWalk }}" style="min-height: 58px; border: none; border-radius: 18px; background: #1E2420; color: #FFFFFF; font: inherit; font-size: 18px; font-weight: 700; cursor: pointer">Start walk</button>
+<button onClick="{{ goPlan }}" style="min-height: 46px; border-radius: 14px; border: 1.5px solid #3F5446; background: transparent; color: #3F5446; font: inherit; font-weight: 600; cursor: pointer">Plan a route first</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ isPlan }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<h1 style="margin: 0; font-size: 28px; font-weight: 700; letter-spacing: -0.01em">Plan a calmer walk</h1>
+<div style="background: #FFFFFF; border-radius: 20px; padding: 8px; display: flex; flex-direction: column; gap: 10px">
+<svg viewBox="0 0 350 240" role="img" aria-label="Map of Hyde Park with two off-lead areas, three spots where Miso has reacted before, and a suggested loop round the Serpentine that keeps away from them" style="width: 100%; height: auto; border-radius: 14px; display: block">
+<rect x="0" y="0" width="350" height="240" fill="#ECE8DC"></rect>
+<path d="M0 10 H350 M0 229 H350 M6 0 V240 M344 0 V240" stroke="#FFFFFF" stroke-width="6" fill="none"></path>
+<rect x="14" y="20" width="322" height="200" rx="14" fill="#D3DFCB"></rect>
+<rect x="150" y="38" width="92" height="42" rx="10" fill="#B9CDAE"></rect>
+<rect x="34" y="150" width="76" height="40" rx="10" fill="#B9CDAE"></rect>
+<path d="M132 20 V220" stroke="#FFFFFF" stroke-width="3" fill="none"></path>
+<path d="M14 200 H336 M132 62 L252 30 M132 156 L330 64 M184 220 L292 20" stroke="#F3F0E8" stroke-width="1.6" fill="none"></path>
+<path d="M118 44 C112 80 124 108 150 122 C190 140 240 128 292 150" stroke="#AFC8D6" stroke-width="15" stroke-linecap="round" fill="none"></path>
+<path d="M252 206 L252 186 L164 178 L134 142 L134 86 L200 100 L300 124 L314 162 L276 192 L252 206" stroke="#177A6E" stroke-width="3.5" stroke-dasharray="7 5" stroke-linejoin="round" fill="none"></path>
+<text x="22" y="132" font-size="10.5" font-weight="600" fill="#4A524C" font-family="Figtree, sans-serif">Kensington Gardens</text>
+<text x="226" y="36" font-size="10.5" font-weight="600" fill="#4A524C" font-family="Figtree, sans-serif">Speakers' Corner</text>
+<circle cx="196" cy="150" r="7" fill="#B4501A"></circle>
+<circle cx="178" cy="210" r="7" fill="#B4501A"></circle>
+<circle cx="304" cy="48" r="7" fill="#B4501A"></circle>
+<circle cx="252" cy="206" r="8" fill="#1E2420" stroke="#FFFFFF" stroke-width="3"></circle>
+</svg>
+<div style="display: flex; flex-wrap: wrap; gap: 6px 14px; padding: 0 6px 6px; font-size: 12px; color: #4A524C">
+<span style="display: flex; align-items: center; gap: 6px"><span style="width: 12px; height: 12px; border-radius: 4px; background: #B9CDAE; display: inline-block"></span>Off-lead area</span>
+<span style="display: flex; align-items: center; gap: 6px"><span style="width: 12px; height: 12px; border-radius: 6px; background: #B4501A; display: inline-block"></span>Miso's flagged spots</span>
+<span style="display: flex; align-items: center; gap: 6px"><span style="width: 14px; height: 0; border-top: 3px dashed #177A6E; display: inline-block"></span>Suggested route</span>
+</div>
+</div>
+<div style="background: #FFFFFF; border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: baseline; justify-content: space-between">
+<span style="font-weight: 700; font-size: 16px">How busy is Hyde Park</span>
+<span style="font-size: 13px; color: #5E665F">Today</span>
+</div>
+<div style="display: flex; align-items: flex-end; gap: 5px; height: 84px">
+<div style="flex: 1; height: 58%; background: #CFCBBF; border-radius: 4px"></div>
+<div style="flex: 1; height: 92%; background: #CFCBBF; border-radius: 4px"></div>
+<div style="flex: 1; height: 70%; background: #CFCBBF; border-radius: 4px"></div>
+<div style="flex: 1; height: 46%; background: #CFCBBF; border-radius: 4px"></div>
+<div style="flex: 1; height: 52%; background: #CFCBBF; border-radius: 4px"></div>
+<div style="flex: 1; height: 64%; background: #CFCBBF; border-radius: 4px"></div>
+<div style="flex: 1; height: 40%; background: #CFCBBF; border-radius: 4px"></div>
+<div style="flex: 1; height: 20%; background: #177A6E; border-radius: 4px"></div>
+<div style="flex: 1; height: 26%; background: #177A6E; border-radius: 4px"></div>
+<div style="flex: 1; height: 62%; background: #CFCBBF; border-radius: 4px"></div>
+<div style="flex: 1; height: 96%; background: #CFCBBF; border-radius: 4px"></div>
+<div style="flex: 1; height: 80%; background: #CFCBBF; border-radius: 4px"></div>
+</div>
+<div style="display: flex; justify-content: space-between; font-size: 12px; color: #5E665F">
+<span>7 am</span><span>11 am</span><span>2 pm</span><span>6 pm</span>
+</div>
+<span style="font-size: 13px; color: #177A6E; font-weight: 600">Quietest from 2:00 to 3:30 pm</span>
+</div>
+<div style="background: #FFFFFF; border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 6px">
+<span style="font-weight: 700; font-size: 16px">Serpentine loop</span>
+<span style="font-size: 13px; color: #5E665F">3.2 km · about 45 min · one off-lead stretch</span>
+<span style="font-size: 14px">Crosses the bridge and keeps away from the lakeside café and the playground gate, where Miso has reacted before.</span>
+<button onClick="{{ startWalk }}" style="min-height: 50px; margin-top: 6px; border: none; border-radius: 14px; background: #3F5446; color: #FFFFFF; font: inherit; font-weight: 600; font-size: 16px; cursor: pointer">Walk this route</button>
+</div>
+<span style="font-size: 12px; color: #5E665F">Sample map, not to scale. Busy times are estimated from typical footfall. Flagged spots come only from your own walks.</span>
+</div>
+</sc-if>
+
+<sc-if value="{{ walkIdle }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<h1 style="margin: 0; font-size: 28px; font-weight: 700; letter-spacing: -0.01em">Ready when you are</h1>
+<div style="background: #FFFFFF; border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 10px">
+<span style="font-weight: 600">Ring handle connected · 82%</span>
+<span style="font-weight: 600">Harness pod connected · 64%</span>
+<span style="font-size: 13px; color: #5E665F">The lead starts locked at 1.2 m. Squeeze the trigger when you want to give Miso more.</span>
+</div>
+<button onClick="{{ startWalk }}" style="min-height: 58px; border: none; border-radius: 18px; background: #1E2420; color: #FFFFFF; font: inherit; font-size: 18px; font-weight: 700; cursor: pointer">Start walk</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ walkLive }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 10px">
+<div style="display: flex; align-items: center; gap: 10px">
+<h1 style="margin: 0; font-size: 28px; font-weight: 700; letter-spacing: -0.01em">Walking</h1>
+<span style="display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border-radius: 14px; background: #D5E0D6; color: #2C3D32; font-size: 13px; font-weight: 700">
+<svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><circle cx="5" cy="5" r="4" fill="#177A6E"><animate attributeName="opacity" values="1;0.35;1" dur="1.6s" repeatCount="indefinite"></animate></circle></svg>
+<span>Live</span>
+</span>
+</div>
+<span style="font-size: 14px; color: #5E665F">18 min · 1.2 km</span>
+</div>
+<div style="border-radius: 20px; padding: 18px; display: flex; flex-direction: column; gap: 6px; background: {{ stateBg }}; color: {{ stateFg }}">
+<span style="font-size: 13px; opacity: 0.9">Miso right now</span>
+<span style="font-size: 30px; font-weight: 700; letter-spacing: -0.01em">{{ stateTitle }}</span>
+<span style="font-size: 14px">{{ stateSub }}</span>
+<sc-if value="{{ showAlert }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ calm }}" style="align-self: flex-start; min-height: 44px; padding: 0 16px; margin-top: 6px; border-radius: 12px; border: 1.5px solid #FFFFFF; background: transparent; color: #FFFFFF; font: inherit; font-weight: 600; cursor: pointer">Miso has settled</button>
+</sc-if>
+</div>
+<sc-if value="{{ leadOn }}" hint-placeholder-val="{{ true }}">
+<div style="background: #FFFFFF; border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 12px">
+<div style="display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 13px; color: #5E665F">Lead out now</span>
+<span style="font-size: 34px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.1">{{ leadLen }}</span>
+</div>
+<span style="padding: 6px 12px; border-radius: 14px; background: #E6E2D6; font-size: 13px; font-weight: 700">{{ leadMode }}</span>
+</div>
+<div style="display: flex; gap: 10px; align-items: flex-start; background: #EEF3EE; border-radius: 14px; padding: 12px">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3F5446" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; margin-top: 1px"><path d="M6 17 V11 A6 6 0 0 1 18 11 V17 L20 19 H4 Z"></path><path d="M10 21.5 H14"></path></svg>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 13px; font-weight: 700; color: #2C3D32">Reminder</span>
+<span style="font-size: 14px; color: #1E2420">{{ reminder }}</span>
+</div>
+</div>
+<span style="font-size: 13px; color: #5E665F">The handle senses how much lead is out. Squeeze the trigger to change it; it locks when you let go.</span>
+<button onClick="{{ toggleLen }}" style="min-height: 44px; border-radius: 14px; border: 1.5px dashed #5E665F; background: transparent; color: #4A524C; font: inherit; font-size: 13px; cursor: pointer">Demo only: squeeze the trigger</button>
+</div>
+</sc-if>
+<div style="background: #FFFFFF; border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: baseline; justify-content: space-between">
+<span style="font-weight: 700; font-size: 16px">Marked moments</span>
+<span style="font-size: 22px; font-weight: 700">{{ marks }}</span>
+</div>
+<button onClick="{{ mark }}" style="min-height: 50px; border-radius: 14px; border: 1.5px solid #3F5446; background: #FFFFFF; color: #3F5446; font: inherit; font-weight: 600; font-size: 16px; cursor: pointer">Mark this moment</button>
+<span style="font-size: 13px; color: #5E665F">Same as the thumb button on the handle. Add what happened later, at home.</span>
+</div>
+<button onClick="{{ toggleDock }}" style="min-height: 50px; border-radius: 14px; border: 1.5px solid #CFCBBF; background: #FFFFFF; color: #1E2420; font: inherit; font-weight: 600; cursor: pointer">{{ dockLabel }}</button>
+<button onClick="{{ lunge }}" style="min-height: 44px; border-radius: 14px; border: 1.5px dashed #5E665F; background: transparent; color: #4A524C; font: inherit; font-size: 13px; cursor: pointer">Demo only: Miso lunges at a ball</button>
+<button onClick="{{ endWalk }}" style="min-height: 56px; border: none; border-radius: 18px; background: #1E2420; color: #FFFFFF; font: inherit; font-size: 17px; font-weight: 700; cursor: pointer">End walk</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ isReview }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<h1 style="margin: 0; font-size: 28px; font-weight: 700; letter-spacing: -0.01em">Review</h1>
+<div style="display: flex; background: #E6E2D6; border-radius: 14px; padding: 4px; gap: 4px">
+<button onClick="{{ tabWalk }}" style="flex: 1; min-height: 44px; border: none; border-radius: 10px; font: inherit; font-weight: 600; cursor: pointer; background: {{ rwBg }}; color: {{ rwFg }}">This walk</button>
+<button onClick="{{ tabPatterns }}" style="flex: 1; min-height: 44px; border: none; border-radius: 10px; font: inherit; font-weight: 600; cursor: pointer; background: {{ rpBg }}; color: {{ rpFg }}">Patterns</button>
+</div>
+
+<sc-if value="{{ showWalkTab }}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<div style="background: #FFFFFF; border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 12px">
+<span style="font-size: 13px; color: #5E665F">Today · 10:24 to 10:58 · Serpentine loop</span>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+<div style="display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 22px; font-weight: 700">3</span>
+<span style="font-size: 12px; color: #5E665F">flagged moments</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 22px; font-weight: 700">68%</span>
+<span style="font-size: 12px; color: #5E665F">of the walk on Short</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 22px; font-weight: 700">42 s</span>
+<span style="font-size: 12px; color: #5E665F">to settle again</span>
+</div>
+</div>
+<svg viewBox="0 0 318 54" role="img" aria-label="Timeline of the walk: mostly calm, with a restless minute at 10:31, a lunge at 10:42 and a marked moment at 10:55" style="width: 100%; height: auto; display: block">
+<rect x="0" y="22" width="318" height="10" rx="5" fill="#C5D3C0"></rect>
+<rect x="62" y="22" width="26" height="10" fill="#E0B48F"></rect>
+<rect x="166" y="22" width="16" height="10" fill="#B4501A"></rect>
+<circle cx="174" cy="10" r="5" fill="#B4501A"></circle>
+<circle cx="290" cy="10" r="5" fill="#1E2420"></circle>
+<text x="0" y="50" font-size="11" fill="#5E665F" font-family="Figtree, sans-serif">10:24</text>
+<text x="290" y="50" font-size="11" fill="#5E665F" font-family="Figtree, sans-serif">10:58</text>
+</svg>
+</div>
+<span style="font-weight: 700; font-size: 16px">Moments to look at</span>
+<sc-for list="{{ moments }}" as="m" hint-placeholder-count="3">
+<div style="background: #FFFFFF; border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 6px">
+<div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px">
+<span style="font-weight: 700">{{ m.place }}</span>
+<span style="font-size: 13px; color: #5E665F">{{ m.time }}</span>
+</div>
+<span style="font-size: 14px">{{ m.saw }}</span>
+<sc-if value="{{ m.done }}" hint-placeholder-val="{{ true }}">
+<span style="font-size: 13px; font-weight: 600; color: #177A6E">{{ m.tag }}</span>
+</sc-if>
+<sc-if value="{{ m.todo }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ m.open }}" style="min-height: 46px; margin-top: 4px; border: none; border-radius: 14px; background: #B4501A; color: #FFFFFF; font: inherit; font-weight: 600; cursor: pointer">Add what happened</button>
+</sc-if>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ showPatternsTab }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<div style="background: #FFFFFF; border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; flex-direction: column; gap: 2px">
+<span style="font-weight: 700; font-size: 16px">What tends to set Miso off</span>
+<span style="font-size: 13px; color: #5E665F">{{ totalLabel }}</span>
+</div>
+<sc-for list="{{ patterns }}" as="p" hint-placeholder-count="4">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<div style="display: flex; justify-content: space-between; font-size: 14px">
+<span style="font-weight: 600">{{ p.label }}</span>
+<span style="color: #5E665F">{{ p.n }}</span>
+</div>
+<div style="height: 10px; border-radius: 5px; background: #E6E2D6">
+<div style="height: 10px; border-radius: 5px; background: #B4501A; width: {{ p.w }}"></div>
+</div>
+</div>
+</sc-for>
+</div>
+<div style="background: #3F5446; color: #FFFFFF; border-radius: 20px; padding: 18px; display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 13px; color: #D5E0D6">What this suggests</span>
+<span style="font-size: 17px; font-weight: 700">Balls and toys, when another dog is close</span>
+<span style="font-size: 14px; color: #EEF3EE">Most flagged moments happen at the playground gate with a ball in play. Try pocketing the ball before the gate. Leeway will remind you to go Short there.</span>
+</div>
+<div style="background: #FFFFFF; border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: baseline; justify-content: space-between">
+<span style="font-weight: 700; font-size: 16px">Flagged moments per week</span>
+<span style="font-size: 13px; color: #177A6E; font-weight: 600">Trending down</span>
+</div>
+<div style="display: flex; align-items: flex-end; gap: 10px; height: 70px">
+<div style="flex: 1; height: 100%; background: #CFCBBF; border-radius: 6px"></div>
+<div style="flex: 1; height: 80%; background: #CFCBBF; border-radius: 6px"></div>
+<div style="flex: 1; height: 60%; background: #CFCBBF; border-radius: 6px"></div>
+<div style="flex: 1; height: 40%; background: #177A6E; border-radius: 6px"></div>
+</div>
+<div style="display: flex; justify-content: space-between; font-size: 12px; color: #5E665F">
+<span>3 weeks ago</span><span>This week</span>
+</div>
+</div>
+<button onClick="{{ share }}" style="min-height: 50px; border-radius: 14px; border: 1.5px solid #3F5446; background: #FFFFFF; color: #3F5446; font: inherit; font-weight: 600; font-size: 16px; cursor: pointer">{{ shareLabel }}</button>
+</div>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ isTag }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<button onClick="{{ goReview }}" style="align-self: flex-start; min-height: 44px; padding: 0 14px 0 0; border: none; background: transparent; color: #3F5446; font: inherit; font-weight: 600; cursor: pointer">Back to review</button>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 14px; color: #5E665F">10:42 · Playground gate</span>
+<h1 style="margin: 0; font-size: 26px; font-weight: 700; letter-spacing: -0.01em">What happened here?</h1>
+</div>
+<div style="background: #FFFFFF; border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 13px; color: #5E665F">What the sensors saw</span>
+<span style="font-size: 15px">Miso froze for 3 seconds, then lunged forward. The lead was on Short and stayed locked.</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-weight: 700; font-size: 16px">What was around?</span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{ causes }}" as="c" hint-placeholder-count="6">
+<button onClick="{{ c.pick }}" style="min-height: 44px; padding: 0 14px; border-radius: 22px; font: inherit; font-weight: 600; cursor: pointer; border: 1.5px solid {{ c.bd }}; background: {{ c.bg }}; color: {{ c.fg }}">{{ c.label }}</button>
+</sc-for>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-weight: 700; font-size: 16px">Who else was involved?</span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{ whos }}" as="c" hint-placeholder-count="4">
+<button onClick="{{ c.pick }}" style="min-height: 44px; padding: 0 14px; border-radius: 22px; font: inherit; font-weight: 600; cursor: pointer; border: 1.5px solid {{ c.bd }}; background: {{ c.bg }}; color: {{ c.fg }}">{{ c.label }}</button>
+</sc-for>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-weight: 700; font-size: 16px">What did Miso do?</span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{ reacts }}" as="c" hint-placeholder-count="5">
+<button onClick="{{ c.pick }}" style="min-height: 44px; padding: 0 14px; border-radius: 22px; font: inherit; font-weight: 600; cursor: pointer; border: 1.5px solid {{ c.bd }}; background: {{ c.bg }}; color: {{ c.fg }}">{{ c.label }}</button>
+</sc-for>
+</div>
+</div>
+<button onClick="{{ saveTag }}" style="min-height: 56px; border: none; border-radius: 18px; background: #1E2420; color: #FFFFFF; font: inherit; font-size: 17px; font-weight: 700; cursor: pointer">Save and see patterns</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ isPack }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<h1 style="margin: 0; font-size: 28px; font-weight: 700; letter-spacing: -0.01em">Miso's pack</h1>
+<div style="background: #FFFFFF; border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
+<span style="font-weight: 700; font-size: 16px">Let friends see I'm walking</span>
+<button onClick="{{ toggleSharing }}" aria-label="Toggle sharing my walk with friends" style="min-width: 76px; min-height: 44px; border: none; border-radius: 22px; font: inherit; font-weight: 700; cursor: pointer; background: {{ shBg }}; color: {{ shFg }}">{{ shLabel }}</button>
+</div>
+<span style="font-size: 13px; color: #5E665F">Friends see the area you are in, never your exact spot. Only dogs you have added.</span>
+</div>
+<span style="font-weight: 700; font-size: 16px">Out now in Hyde Park</span>
+<sc-for list="{{ friends }}" as="d" hint-placeholder-count="3">
+<div style="background: #FFFFFF; border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 6px">
+<div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px">
+<span style="font-weight: 700; font-size: 16px">{{ d.name }}</span>
+<span style="font-size: 13px; color: #5E665F">{{ d.who }}</span>
+</div>
+<span style="font-size: 14px">{{ d.where }}</span>
+<span style="font-size: 13px; font-weight: 600; color: #177A6E">{{ d.fit }}</span>
+<button onClick="{{ d.ask }}" style="min-height: 46px; margin-top: 4px; border-radius: 14px; font: inherit; font-weight: 600; cursor: pointer; border: 1.5px solid #3F5446; background: {{ d.bg }}; color: {{ d.fg }}">{{ d.askLabel }}</button>
+</div>
+</sc-for>
+<span style="font-weight: 700; font-size: 16px">Give each other space</span>
+<div style="background: #FFFFFF; border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 6px">
+<div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px">
+<span style="font-weight: 700; font-size: 16px">Rex</span>
+<span style="font-size: 13px; color: #5E665F">with Tom</span>
+</div>
+<span style="font-size: 14px">Two tense meetings, both over a ball.</span>
+<span style="font-size: 13px; font-weight: 600; color: #B4501A">Fine on walks without toys</span>
+</div>
+<span style="font-size: 12px; color: #5E665F">Matches come from calm walks you have had together, not from breed or size.</span>
+</div>
+</sc-if>
+
+<sc-if value="{{ isProfile }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<button onClick="{{ goHome }}" style="align-self: flex-start; min-height: 44px; padding: 0 14px 0 0; border: none; background: transparent; color: #3F5446; font: inherit; font-weight: 600; cursor: pointer">Back to the map</button>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<h1 style="margin: 0; font-size: 28px; font-weight: 700; letter-spacing: -0.01em">Miso</h1>
+<span style="font-size: 14px; color: #5E665F">Staffie cross · 3 years · 19 kg</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-weight: 700; font-size: 16px">What Miso cares about most</span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{ cares }}" as="c" hint-placeholder-count="5">
+<button onClick="{{ c.pick }}" style="min-height: 44px; padding: 0 14px; border-radius: 22px; font: inherit; font-weight: 600; cursor: pointer; border: 1.5px solid {{ c.bd }}; background: {{ c.bg }}; color: {{ c.fg }}">{{ c.label }}</button>
+</sc-for>
+</div>
+<span style="font-size: 13px; color: #5E665F">Tell us what you already know. Leeway watches these more closely.</span>
+</div>
+<div style="background: #FFFFFF; border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 10px">
+<span style="font-weight: 700; font-size: 16px">How often should Leeway remind you?</span>
+<div style="display: flex; background: #E6E2D6; border-radius: 14px; padding: 4px; gap: 4px">
+<sc-for list="{{ senses }}" as="s" hint-placeholder-count="3">
+<button onClick="{{ s.pick }}" style="flex: 1; min-height: 44px; border: none; border-radius: 10px; font: inherit; font-weight: 600; cursor: pointer; background: {{ s.bg }}; color: {{ s.fg }}">{{ s.label }}</button>
+</sc-for>
+</div>
+<span style="font-size: 13px; color: #5E665F">{{ sensNote }}</span>
+</div>
+<div style="background: #FFFFFF; border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 6px">
+<span style="font-weight: 700; font-size: 16px">Miso's normal movement</span>
+<span style="font-size: 14px">Learned by the harness pod over your first three walks. Flags compare Miso with Miso, not with other dogs.</span>
+<button onClick="{{ recal }}" style="min-height: 46px; margin-top: 4px; border-radius: 14px; border: 1.5px solid #3F5446; background: #FFFFFF; color: #3F5446; font: inherit; font-weight: 600; cursor: pointer">{{ recalLabel }}</button>
+</div>
+<div style="background: #FFFFFF; border-radius: 20px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
+<span style="font-weight: 600">Ring handle</span>
+<span style="font-size: 13px; color: #177A6E; font-weight: 600">Connected · 82%</span>
+</div>
+<div style="height: 1px; background: #E6E2D6"></div>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
+<span style="font-weight: 600">Harness pod</span>
+<span style="font-size: 13px; color: #177A6E; font-weight: 600">Connected · 64%</span>
+</div>
+</div>
+</div>
+</sc-if>
+
+</div>
+<nav aria-label="Main" style="flex: 0 0 auto; display: flex; background: #FFFFFF; border-top: 1px solid #E6E2D6; padding: 8px 8px 22px">
+<button onClick="{{ goHome }}" style="flex: 1; min-height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; border: none; background: transparent; font: inherit; font-size: 12px; font-weight: 600; cursor: pointer; color: {{ tc.home }}">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6 L9 4 L15 6 L21 4 V18 L15 20 L9 18 L3 20 Z M9 4 V18 M15 6 V20"></path></svg>
+<span>Map</span>
+</button>
+<button onClick="{{ goPlan }}" style="flex: 1; min-height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; border: none; background: transparent; font: inherit; font-size: 12px; font-weight: 600; cursor: pointer; color: {{ tc.plan }}">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21 C7 15 5 12 5 9 A7 7 0 0 1 19 9 C19 12 17 15 12 21 Z"></path><circle cx="12" cy="9" r="2.5"></circle></svg>
+<span>Plan</span>
+</button>
+<button onClick="{{ goWalk }}" style="flex: 1; min-height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; border: none; background: transparent; font: inherit; font-size: 12px; font-weight: 600; cursor: pointer; color: {{ tc.walk }}">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="10" r="6.5"></circle><path d="M12 16.5 V22"></path></svg>
+<span>Walk</span>
+</button>
+<button onClick="{{ goReview }}" style="flex: 1; min-height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; border: none; background: transparent; font: inherit; font-size: 12px; font-weight: 600; cursor: pointer; color: {{ tc.review }}">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20 V10 M10 20 V4 M16 20 V13 M21 20 H3"></path></svg>
+<span>Review</span>
+</button>
+<button onClick="{{ goPack }}" style="flex: 1; min-height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; border: none; background: transparent; font: inherit; font-size: 12px; font-weight: 600; cursor: pointer; color: {{ tc.pack }}">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8.5" cy="9" r="3.5"></circle><circle cx="16.5" cy="10" r="2.8"></circle><path d="M2.5 20 C3 16 5.5 14.5 8.5 14.5 S14 16 14.5 20 M15.5 15 C18.5 15 20.5 16.5 21.5 20"></path></svg>
+<span>Pack</span>
+</button>
+</nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"start":{"editor":"enum","default":"home","options":["home","plan","walk","review","patterns","tag","pack","profile"],"section":"Prototype"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+state = { screen: null, walking: null, docked: false, len: 'short', marks: 2, alert: false, rtab: null, cause: null, who: null, react: null, tagged: false, sharing: true, asked: {}, sens: 'std', shared: false, recal: false, cares: { ball: true, food: true } };
+
+renderVals() {
+const st = this.state;
+const INK = '#1E2420', MUTE = '#5E665F', SAGE = '#3F5446', ORANGE = '#B4501A', WHITE = '#FFFFFF', LINE = '#CFCBBF';
+const start = this.props.start ?? 'home';
+const screen = st.screen ?? (start === 'patterns' ? 'review' : start);
+const walking = st.walking ?? (start === 'walk');
+const rtab = st.rtab ?? (start === 'patterns' ? 'patterns' : 'walk');
+const go = (s, extra) => () => this.setState(Object.assign({ screen: s }, extra || {}));
+
+const tabOf = { home: 'home', profile: 'home', plan: 'plan', walk: 'walk', review: 'review', tag: 'review', pack: 'pack' }[screen] || 'home';
+const tc = {};
+['home', 'plan', 'walk', 'review', 'pack'].forEach((t) => { tc[t] = t === tabOf ? SAGE : MUTE; });
+
+const chips = (list, key) => list.map(([id, label]) => {
+const on = st[key] === id;
+return { label, bd: on ? SAGE : LINE, bg: on ? SAGE : WHITE, fg: on ? WHITE : INK, pick: () => this.setState({ [key]: on ? null : id }) };
+});
+const seg = (on) => ({ bg: on ? WHITE : 'transparent', fg: on ? INK : '#4A524C' });
+
+const causeList = [['ball', 'Ball or toy'], ['food', 'Food or treats'], ['stick', 'Stick'], ['dog', 'Another dog close by'], ['me', 'My attention'], ['space', 'Tight space'], ['unsure', 'Not sure']];
+const reactList = [['froze', 'Froze'], ['stared', 'Stared'], ['lunged', 'Lunged'], ['barked', 'Barked'], ['guarded', 'Guarded it']];
+const labelOf = (list, id) => { const f = list.find((x) => x[0] === id); return f ? f[1] : null; };
+
+const tagBits = [labelOf(causeList, st.cause), labelOf(reactList, st.react)].filter(Boolean);
+const moments = [
+{ time: '10:31', place: 'Rotten Row', saw: 'Restless for a minute: stop, start, stop.', done: true, todo: false, tag: 'Tagged: squirrel · pulled ahead' },
+{ time: '10:42', place: 'Playground gate', saw: 'Froze for 3 s, then lunged forward.', done: st.tagged, todo: !st.tagged, tag: 'Tagged: ' + (tagBits.join(' · ') || 'noted'), open: go('tag') },
+{ time: '10:55', place: 'Lakeside café', saw: 'You marked this one on the handle.', done: true, todo: false, tag: 'Tagged: food · stared' },
+];
+
+const base = { ball: 9, dog: 6, food: 3, space: 2 };
+if (st.tagged && base[st.cause] != null) base[st.cause] += 1;
+const total = 14 + (st.tagged ? 1 : 0);
+const pl = { ball: 'Balls and toys', dog: 'Another dog close by', food: 'Food and treats', space: 'Tight spaces' };
+const patterns = Object.keys(base).sort((a, b) => base[b] - base[a]).map((k) => ({ label: pl[k], n: base[k] + ' of ' + total, w: Math.round(100 * base[k] / total) + '%' }));
+
+const friendList = [
+{ id: 'biscuit', letter: 'B', name: 'Biscuit', who: 'with Hana', where: 'Near Speakers’ Corner · out for 10 min', fit: '12 calm walks together' },
+{ id: 'olive', letter: 'O', name: 'Olive', who: 'with Sam', where: 'By the Serpentine · heading your way', fit: '7 calm walks together' },
+{ id: 'pepper', letter: 'P', name: 'Pepper', who: 'with Jo', where: 'Kensington Gardens side', fit: '4 calm walks together' },
+];
+const friends = friendList.map((d) => {
+const on = !!st.asked[d.id];
+return Object.assign({}, d, { short: on ? 'Asked' : 'Join', askLabel: on ? 'Asked. Waiting for a reply' : 'Ask to walk together', bg: on ? SAGE : WHITE, fg: on ? WHITE : SAGE, ask: () => this.setState({ asked: Object.assign({}, st.asked, { [d.id]: !on }) }) });
+});
+
+const cares = [['ball', 'Balls and toys'], ['food', 'Food'], ['stick', 'Sticks'], ['dogs', 'Other dogs'], ['me', 'My attention']].map(([id, label]) => {
+const on = !!st.cares[id];
+return { label, bd: on ? SAGE : LINE, bg: on ? SAGE : WHITE, fg: on ? WHITE : INK, pick: () => this.setState({ cares: Object.assign({}, st.cares, { [id]: !on }) }) };
+});
+const senses = [['late', 'Fewer'], ['std', 'Standard'], ['early', 'More']].map(([id, label]) => Object.assign({ label, pick: () => this.setState({ sens: id }) }, seg(st.sens === id)));
+const sensNote = { late: 'Only before Miso’s flagged spots.', std: 'Before flagged spots and busy stretches.', early: 'All of those, plus when there is room to go Long or a friend is near.' }[st.sens];
+
+const isLong = st.len === 'long';
+const leadLen = isLong ? '2.2 m' : '1.2 m';
+const alert = walking && st.alert && !st.docked;
+const stateTitle = st.docked ? 'Off the lead' : alert ? 'Sudden lunge' : 'Relaxed';
+const stateSub = st.docked ? 'Handle docked on your belt. Logging play, reminders paused.' : alert ? 'The harness pod flagged a freeze, then a lunge. Lead held at ' + leadLen + '. Marked for review.' : 'Loose body, steady pace. The harness pod sees nothing unusual.';
+const reminder = alert ? 'Keep the lead on Short until Miso settles.' : isLong ? 'Busy path in about 80 m. Bring Miso back to Short.' : 'Quiet open grass ahead. You have room to go Long.';
+const rw = seg(rtab === 'walk'), rp = seg(rtab === 'patterns');
+
+return {
+isHome: screen === 'home', isPlan: screen === 'plan', isReview: screen === 'review', isTag: screen === 'tag', isPack: screen === 'pack', isProfile: screen === 'profile',
+walkIdle: screen === 'walk' && !walking, walkLive: screen === 'walk' && walking,
+walkBadge: walking && screen !== 'walk',
+tc,
+goHome: go('home'), goPlan: go('plan'), goWalk: go('walk'), goReview: go('review'), goPack: go('pack'), goProfile: go('profile'),
+startWalk: go('walk', { walking: true, alert: false, docked: false }),
+endWalk: go('review', { walking: false, rtab: 'walk', alert: false }),
+stateTitle, stateSub, stateBg: st.docked ? '#E6E2D6' : alert ? ORANGE : SAGE, stateFg: st.docked ? INK : WHITE,
+showAlert: alert, leadOn: !st.docked,
+calm: () => this.setState({ alert: false }),
+lunge: () => this.setState({ alert: true, docked: false, len: 'short', marks: st.marks + 1 }),
+mark: () => this.setState({ marks: st.marks + 1 }),
+marks: st.marks,
+toggleDock: () => this.setState({ docked: !st.docked, alert: false }),
+dockLabel: st.docked ? 'Handle back in hand: lead on' : 'Dock handle on belt: lead off',
+leadLen, leadMode: (isLong ? 'Long' : 'Short') + ' · locked', reminder,
+toggleLen: () => this.setState({ len: isLong ? 'short' : 'long' }),
+tabWalk: () => this.setState({ rtab: 'walk' }), tabPatterns: () => this.setState({ rtab: 'patterns' }),
+rwBg: rw.bg, rwFg: rw.fg, rpBg: rp.bg, rpFg: rp.fg,
+showWalkTab: rtab === 'walk', showPatternsTab: rtab === 'patterns',
+moments, patterns, totalLabel: total + ' flagged moments over the last 4 weeks',
+share: () => this.setState({ shared: !st.shared }),
+shareLabel: st.shared ? 'Summary ready to send' : 'Share a summary with your trainer',
+causes: chips(causeList, 'cause'),
+whos: chips([['known', 'A dog Miso knows'], ['new', 'An unfamiliar dog'], ['person', 'A person'], ['none', 'No one']], 'who'),
+reacts: chips(reactList, 'react'),
+saveTag: go('review', { tagged: true, rtab: 'patterns' }),
+toggleSharing: () => this.setState({ sharing: !st.sharing }),
+shLabel: st.sharing ? 'On' : 'Off', shBg: st.sharing ? SAGE : '#E6E2D6', shFg: st.sharing ? WHITE : INK,
+friends, cares, senses, sensNote,
+recal: () => this.setState({ recal: !st.recal }),
+recalLabel: st.recal ? 'Will recalibrate on your next walk' : 'Recalibrate',
+};
+}
+}
+</script>
+</body>
+</html>
